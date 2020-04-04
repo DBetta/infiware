@@ -1,0 +1,21 @@
+spring:
+  r2dbc:
+    username: root
+    password: mysql
+    url: r2dbc:mysql://127.0.0.1:3306
+    name: infi_test
+
+  ## Security properties
+  security:
+    oauth2:
+      client:
+        provider:
+          facebook:
+            user-info-uri: https://graph.facebook.com/me?fields=email,name
+        registration:
+          google:
+            client-id: 905822539352-atcmhqp7223ir3s15qf8cfbj516ol0qk.apps.googleusercontent.com
+            client-secret: dw9czwD9NhvohYj_x0VQOaBj
+          facebook:
+            client-id: 548349525905412
+            client-secret: 15a20c560c4c780dabdc0e637c02087a

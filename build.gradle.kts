@@ -7,6 +7,8 @@ plugins {
     kotlin("plugin.spring") version "1.3.71"
 }
 
+extra["springCloudVersion"] = "Hoxton.SR3"
+
 allprojects {
     group = "ke.co.infiware"
     version = "0.0.1-SNAPSHOT"
@@ -31,6 +33,11 @@ allprojects {
 subprojects {
     apply(plugin = "java")
 
+    dependencies {
+        implementation("org.jetbrains.kotlin:kotlin-reflect")
+        implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    }
+
     configure<JavaPluginExtension> {
         java.sourceCompatibility = JavaVersion.VERSION_1_8
     }
@@ -44,6 +51,7 @@ subprojects {
 
     val integrationTestImplementation: Configuration by configurations.getting {
         extendsFrom(configurations.implementation.get())
+        extendsFrom(configurations.testImplementation.get())
     }
     val integrationTestRuntimeOnly: Configuration by configurations.getting {
         extendsFrom(configurations.runtimeOnly.get())

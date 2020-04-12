@@ -1,4 +1,8 @@
 spring:
+  application:
+    name: uaa-service
+
+  ## r2dbc datasource configuration
   r2dbc:
     username: root
     password: mysql
@@ -19,3 +23,16 @@ spring:
           facebook:
             client-id: 548349525905412
             client-secret: 15a20c560c4c780dabdc0e637c02087a
+
+  ## consul discovery
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+        heartbeat:
+          enabled: true
+    loadbalancer:
+      ribbon:
+        enabled: false

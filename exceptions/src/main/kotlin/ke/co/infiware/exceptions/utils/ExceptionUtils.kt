@@ -76,6 +76,24 @@ class ExceptionUtils internal constructor(
         ): MultiErrorException {
             return MultiErrorException().validateField(fieldName, valid, messageKey, args)
         }
+
+        fun <T : Throwable> getExceptionId(ex: T?): String? {
+            val root = getRootException(ex = ex)
+            return exceptionIdMaker?.make(t = root)
+        }
+
+        private fun <T : Throwable> getRootException(ex: T?): T? {
+            if (ex == null)
+                return null
+
+            var tempEx: T? = ex
+            while (tempEx?.cause != null) {
+                @Suppress("UNCHECKED_CAST")
+                tempEx = tempEx.cause as? T
+            }
+
+            return tempEx
+        }
     }
 
 }

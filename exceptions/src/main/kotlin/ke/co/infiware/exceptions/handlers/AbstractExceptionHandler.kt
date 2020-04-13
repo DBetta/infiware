@@ -2,6 +2,7 @@ package ke.co.infiware.exceptions.handlers
 
 import ke.co.infiware.exceptions.ErrorResponse
 import ke.co.infiware.exceptions.InfiwareFieldError
+import ke.co.infiware.exceptions.utils.ExceptionUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpStatus
@@ -23,33 +24,33 @@ abstract class AbstractExceptionHandler<T : Throwable>(
     /**
      * Get the unique id to the exception
      */
-    open fun getExceptionId(ex: T): String? {
-        TODO()
+    open fun getExceptionId(ex: T?): String? {
+       return ExceptionUtils.getExceptionId(ex = ex)
     }
 
     /**
      * Get the message
      */
-    open fun getMessage(ex: T): String? = ex.message
+    open fun getMessage(ex: T?): String? = ex?.message
 
     /**
      * Get the status from the exception
      */
-    open fun getStatus(ex: T): HttpStatus? {
+    open fun getStatus(ex: T?): HttpStatus? {
         return null
     }
 
     /**
      * Get the list of [InfiwareFieldError]s
      */
-    open fun getErrors(ex: T): List<InfiwareFieldError> {
+    open fun getErrors(ex: T?): List<InfiwareFieldError> {
         return emptyList()
     }
 
     /**
      * Get's an instance of [ErrorResponse] from the exception.
      */
-    fun getErrorResponse(ex: T): ErrorResponse {
+    fun getErrorResponse(ex: T?): ErrorResponse {
         val errors = getErrors(ex = ex)
         val exceptionId = getExceptionId(ex = ex)
         val message = getMessage(ex = ex)

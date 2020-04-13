@@ -15,20 +15,20 @@ class MultiErrorExceptionHandler
         log.info("Created")
     }
 
-    override fun getExceptionId(ex: MultiErrorException): String? {
-        return ex.exceptionId ?: super.getExceptionId(ex)
+    override fun getExceptionId(ex: MultiErrorException?): String? {
+        return ex?.exceptionId ?: super.getExceptionId(ex)
     }
 
-    override fun getMessage(ex: MultiErrorException): String? {
-        return ex.message
+    override fun getMessage(ex: MultiErrorException?): String? {
+        return ex?.message
     }
 
-    override fun getStatus(ex: MultiErrorException): HttpStatus? {
-        return ex.status
+    override fun getStatus(ex: MultiErrorException?): HttpStatus? {
+        return ex?.status
     }
 
-    override fun getErrors(ex: MultiErrorException): List<InfiwareFieldError> {
-        return ex.errors
+    override fun getErrors(ex: MultiErrorException?): List<InfiwareFieldError> {
+        return ex?.errors ?: emptyList()
     }
 
 }

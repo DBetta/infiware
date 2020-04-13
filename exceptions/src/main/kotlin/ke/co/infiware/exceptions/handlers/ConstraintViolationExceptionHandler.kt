@@ -16,7 +16,7 @@ class ConstraintViolationExceptionHandler : AbstractValidationExceptionHandler<C
         log.info("Created")
     }
 
-    override fun getErrors(ex: ConstraintViolationException): List<InfiwareFieldError> {
-        return getErrors(ex.constraintViolations)
+    override fun getErrors(ex: ConstraintViolationException?): List<InfiwareFieldError> {
+        return getErrors(ex?.constraintViolations ?: emptySet())
     }
 }

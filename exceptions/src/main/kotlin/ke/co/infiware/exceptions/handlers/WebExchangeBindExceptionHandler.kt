@@ -15,7 +15,7 @@ class WebExchangeBindExceptionHandler
         log.info("Created")
     }
 
-    override fun getErrors(ex: WebExchangeBindException): List<InfiwareFieldError> {
+    override fun getErrors(ex: WebExchangeBindException?): List<InfiwareFieldError> {
         return InfiwareFieldError.getErrors(ex)
     }
 }

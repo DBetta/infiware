@@ -6,7 +6,11 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
+import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration
 import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration
+import org.springframework.boot.autoconfigure.web.reactive.WebFluxAutoConfiguration
+import org.springframework.boot.autoconfigure.web.reactive.error.ErrorWebFluxAutoConfiguration
+import org.springframework.boot.web.reactive.error.ErrorAttributes
 import org.springframework.context.MessageSource
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
@@ -18,7 +22,12 @@ import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
  * @author Denis Gitonga
  */
 @Configuration
-@AutoConfigureBefore(ValidationAutoConfiguration::class)
+@AutoConfigureBefore(
+        ValidationAutoConfiguration::class,
+        WebFluxAutoConfiguration::class,
+        ErrorWebFluxAutoConfiguration::class,
+        ReactiveSecurityAutoConfiguration::class
+)
 @ComponentScan(basePackageClasses = [AbstractExceptionHandler::class])
 class InfiwareExceptionAutoConfiguration {
 
@@ -32,6 +41,16 @@ class InfiwareExceptionAutoConfiguration {
     fun <T : Throwable> errorResponseComposer(handlers: List<AbstractExceptionHandler<T>>?): ErrorResponseComposer<T> {
         log.info("Configuring ErrorResponseComposer")
         return ErrorResponseComposer(handlers)
+    }
+
+    /**
+     * Configures an Error Attributes if missing
+     */
+    @Bean
+    @ConditionalOnMissingBean(ErrorAttributes::class)
+    fun <T : Throwable> errorAttributes(errorResponseComposer: ErrorResponseComposer<T>?): ErrorAttributes {
+        log.info("Configuring InfiwareReactiveErrorAttributes")
+        return InfiwareReactiveErrorAttributes<T>(errorResponseComposer = errorResponseComposer)
     }
 
 

@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus
 abstract class AbstractValidationExceptionHandler<T : Throwable>(exceptionClass: Class<*>)
     : AbstractExceptionHandler<T>(exceptionClass) {
 
-    override fun getStatus(ex: T): HttpStatus? {
+    override fun getStatus(ex: T?): HttpStatus? {
         return HttpStatus.UNPROCESSABLE_ENTITY
     }
 }

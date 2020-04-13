@@ -11,7 +11,7 @@ import org.springframework.http.HttpStatus
 abstract class AbstractBadRequestExceptionHandler<T : Throwable>(exceptionClass: Class<*>)
     : AbstractExceptionHandler<T>(exceptionClass) {
 
-    override fun getStatus(ex: T): HttpStatus? {
+    override fun getStatus(ex: T?): HttpStatus? {
         return HttpStatus.BAD_REQUEST
     }
 }

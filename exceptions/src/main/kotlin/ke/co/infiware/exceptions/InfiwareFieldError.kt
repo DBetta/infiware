@@ -69,9 +69,9 @@ class InfiwareFieldError internal constructor(
          * Get the list of errors from [WebExchangeBindException]
          */
         @JvmStatic
-        fun getErrors(ex: WebExchangeBindException): List<InfiwareFieldError> {
-            val errors = ex.fieldErrors.map { of(it) }.toMutableList()
-            val globalErrors = ex.globalErrors.map { of(it) }
+        fun getErrors(ex: WebExchangeBindException?): List<InfiwareFieldError> {
+            val errors = ex?.fieldErrors?.map { of(it) }?.toMutableList() ?: mutableListOf()
+            val globalErrors = ex?.globalErrors?.map { of(it) } ?: emptyList()
             errors += globalErrors
             return errors
         }

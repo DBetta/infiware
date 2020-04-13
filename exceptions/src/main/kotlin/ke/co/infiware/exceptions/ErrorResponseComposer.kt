@@ -14,29 +14,36 @@ import java.util.stream.Collectors
 class ErrorResponseComposer<T : Throwable> internal constructor(
         handlers: List<AbstractExceptionHandler<T>>?
 ) {
+    init {
+        handlers!!
+    }
 
-    private val handlers = (handlers ?: emptyList()).stream()
-            .collect(Collectors.toMap(
-                    Function { it.exceptionClass },
-                    Function.identity(),
-                    BinaryOperator { handler1, handler2 ->
-                        if (AnnotationAwareOrderComparator.INSTANCE.compare(handler1, handler2) < 0) handler1
-                        else handler2
-                    }))
+    private val handlers: Map<Class<*>, AbstractExceptionHandler<T>> = (handlers ?: emptyList()).stream()
+            .collect(
+                    Collectors.toMap<AbstractExceptionHandler<T>, Class<*>, AbstractExceptionHandler<T>>(
+                            Function { it.exceptionClass },
+                            Function.identity(),
+                            BinaryOperator { handler1, handler2 ->
+                                if (AnnotationAwareOrderComparator.INSTANCE.compare(handler1, handler2) < 0) handler1
+                                else handler2
+                            })
+            )
 
     /**
      * Given an exception, finds a handler for
      * building the response and uses that to build and return the response
      */
-    fun compose(ex: T): ErrorResponse? {
+    fun compose(ex: T?): ErrorResponse? {
         var handler: AbstractExceptionHandler<T>? = null
-        var tempEx: T? = ex
+        var tempEx = ex
 
         // find a handler for the exception
         // if no handler is found,
         // loop into for its cause (ex.getCause())
         while (tempEx != null) {
-            handler = handlers[ex.javaClass]
+            handler = if (ex?.javaClass != null)
+                handlers[ex.javaClass]
+            else null
 
             if (handler != null) // found handler
                 break

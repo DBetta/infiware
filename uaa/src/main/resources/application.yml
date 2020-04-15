@@ -3,11 +3,16 @@ spring:
     name: uaa-service
 
   ## r2dbc datasource configuration
-  r2dbc:
+#  r2dbc:
+#    username: root
+#    password: mysql
+#    url: r2dbc:mysql://127.0.0.1:3306
+#    name: infi_test
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/infi_test
     username: root
     password: mysql
-    url: r2dbc:mysql://127.0.0.1:3306
-    name: infi_test
 
   ## Security properties
   security:

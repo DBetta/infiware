@@ -1,7 +1,7 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    id("org.springframework.boot") version "2.3.0.M4" apply false
+    id("org.springframework.boot") version "2.2.6.RELEASE" apply false
     id("io.spring.dependency-management") version "1.0.9.RELEASE" apply false
     kotlin("jvm") version "1.3.71"
     kotlin("plugin.spring") version "1.3.71" apply false
@@ -30,7 +30,7 @@ allprojects {
 
     repositories {
         mavenCentral()
-        maven { url = uri("https://repo.spring.io/milestone") }
+        /*maven { url = uri("https://repo.spring.io/milestone") }*/
     }
 }
 

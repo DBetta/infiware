@@ -1,4 +1,4 @@
-pluginManagement {
+/*pluginManagement {
     repositories {
         maven { url = uri("https://repo.spring.io/milestone") }
         gradlePluginPortal()
@@ -10,6 +10,6 @@ pluginManagement {
             }
         }
     }
-}
+}*/
 rootProject.name = "infiware"
 include(":exceptions", ":gateway", ":uaa")

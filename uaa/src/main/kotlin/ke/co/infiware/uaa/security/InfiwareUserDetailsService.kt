@@ -18,8 +18,7 @@ import reactor.core.publisher.Mono
  * @author Denis Gitonga
  */
 class InfiwareUserDetailsService(
-        val userRepository: UserRepository,
-        val userMapper: UserMapper
+        private val userMapper: UserMapper
 ) : ReactiveUserDetailsService {
 
     private val log: Logger = LoggerFactory.getLogger(InfiwareUserDetailsService::class.java)

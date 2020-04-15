@@ -1,5 +1,6 @@
 package ke.co.infiware.exceptions
 
+import ke.co.infiware.exceptions.utils.ExceptionUtils
 import org.springframework.http.HttpStatus
 
 /**
@@ -50,16 +51,16 @@ class MultiErrorException internal constructor(
      */
     fun validateField(fieldName: String?,
                       valid: Boolean,
-                      messageKey: String?,
+                      messageKey: String,
                       vararg args: Any): MultiErrorException {
-        /*if (valid.not())
+        if (valid.not())
             errors.add(
                     InfiwareFieldError(
                             field = fieldName,
                             code = messageKey,
-                            message = getMessage(messageKey = messageKey, args = *arrayOf(args))
+                            message = ExceptionUtils.getMessage(messageKey = messageKey, args = *arrayOf(args))
                     )
-            )*/
+            )
         return this
     }
 
@@ -68,7 +69,7 @@ class MultiErrorException internal constructor(
      */
     fun validate(
             valid: Boolean,
-            messageKey: String?,
+            messageKey: String,
             vararg args: Any): MultiErrorException? {
 
         // delegate

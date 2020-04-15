@@ -12,4 +12,4 @@ pluginManagement {
     }
 }
 rootProject.name = "infiware"
-include("exceptions", "uaa")
+include(":exceptions", ":gateway", ":uaa")

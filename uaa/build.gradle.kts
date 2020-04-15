@@ -4,6 +4,7 @@ plugins {
     id("io.spring.dependency-management")
     kotlin("jvm")
     kotlin("plugin.spring")
+    kotlin("kapt")
 }
 
 
@@ -23,9 +24,19 @@ dependencies {
     runtimeOnly("dev.miku:r2dbc-mysql")
     runtimeOnly("mysql:mysql-connector-java")
 
-    // cloud depencies
-    implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
+    // map-struct
+    implementation("org.mapstruct:mapstruct:1.3.1.Final")
+    implementation("com.github.pozo:mapstruct-kotlin:1.3.1.2")
+    kapt("org.mapstruct:mapstruct-processor:1.3.1.Final")
+    kapt("com.github.pozo:mapstruct-kotlin-processor:1.3.1.2")
     //
+
+    // cloud dependencies
+    implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
+    implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer")
+    //
+
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 
 
     // test dependencies
@@ -40,5 +51,9 @@ dependencyManagement {
     imports {
         mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
     }
+}
+
+kapt {
+    correctErrorTypes = true
 }
 

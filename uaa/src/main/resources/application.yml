@@ -27,7 +27,7 @@ spring:
   ## consul discovery
   cloud:
     consul:
-      host: localhost
+      host: bomapoint.com
       port: 8500
       discovery:
         instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
@@ -36,3 +36,10 @@ spring:
     loadbalancer:
       ribbon:
         enabled: false
+
+
+## uaa properties
+infiware:
+  uaa:
+    cors:
+      max-age: 3600

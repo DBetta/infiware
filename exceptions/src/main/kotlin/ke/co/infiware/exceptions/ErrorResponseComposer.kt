@@ -18,6 +18,7 @@ class ErrorResponseComposer<T : Throwable> internal constructor(
         handlers!!
     }
 
+    @Suppress("RemoveExplicitTypeArguments")
     private val handlers: Map<Class<*>, AbstractExceptionHandler<T>> = (handlers ?: emptyList()).stream()
             .collect(
                     Collectors.toMap<AbstractExceptionHandler<T>, Class<*>, AbstractExceptionHandler<T>>(

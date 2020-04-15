@@ -10,7 +10,7 @@ import javax.validation.ConstraintViolation
  *
  * @author Denis Gitonga
  */
-class InfiwareFieldError internal constructor(
+class InfiwareFieldError (
         /**
          * Name of the field. Null in case of form error
          */

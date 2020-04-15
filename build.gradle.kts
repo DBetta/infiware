@@ -5,6 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.0.9.RELEASE"
     kotlin("jvm") version "1.3.71"
     kotlin("plugin.spring") version "1.3.71"
+    kotlin("kapt") version "1.3.71"
 }
 
 extra["springCloudVersion"] = "Hoxton.SR3"
@@ -13,6 +14,9 @@ allprojects {
     group = "ke.co.infiware"
     version = "0.0.1-SNAPSHOT"
 
+    apply<IdeaPlugin>()
+    apply<EclipsePlugin>()
+
     tasks.withType<Test> {
         useJUnitPlatform()
     }
@@ -20,7 +24,7 @@ allprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict")
-            jvmTarget = "1.8"
+            jvmTarget = "11"
         }
     }
 
@@ -36,10 +40,13 @@ subprojects {
     dependencies {
         implementation("org.jetbrains.kotlin:kotlin-reflect")
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+
+
+        implementation("org.apache.commons:commons-lang3")
     }
 
     configure<JavaPluginExtension> {
-        java.sourceCompatibility = JavaVersion.VERSION_1_8
+        java.sourceCompatibility = JavaVersion.VERSION_11
     }
 
     sourceSets {
@@ -49,6 +56,7 @@ subprojects {
         }
     }
 
+    // integration test setup
     val integrationTestImplementation: Configuration by configurations.getting {
         extendsFrom(configurations.implementation.get())
         extendsFrom(configurations.testImplementation.get())
@@ -70,6 +78,7 @@ subprojects {
     tasks.check {
         dependsOn(integrationTest)
     }
+    // end integration test setup
 
 }
 

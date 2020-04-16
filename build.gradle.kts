@@ -75,9 +75,9 @@ subprojects {
 
     }
 
-    tasks.check {
+    /*tasks.check {
         dependsOn(integrationTest)
-    }
+    }*/
     // end integration test setup
 
 }

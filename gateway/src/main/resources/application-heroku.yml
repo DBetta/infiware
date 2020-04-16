@@ -29,6 +29,7 @@ spring:
         hostname: infiware-gateway.herokuapp.com
         scheme: https
         port: 80
+        health-check-url: https://infiware-gateway.herokuapp.com/actuator/health
 
 server:
   port: 8762

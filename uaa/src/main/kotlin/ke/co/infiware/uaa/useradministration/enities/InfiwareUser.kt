@@ -1,6 +1,10 @@
 package ke.co.infiware.uaa.useradministration.enities
 
 import com.github.pozo.KotlinBuilder
+import java.util.*
+import javax.persistence.GeneratedValue
+import javax.persistence.GenerationType
+import javax.persistence.Id
 
 /**
  *
@@ -8,5 +12,7 @@ import com.github.pozo.KotlinBuilder
  */
 @KotlinBuilder
 data class InfiwareUser (
-        val code: String? = null
+        @Id
+        @GeneratedValue(strategy = GenerationType.AUTO)
+        val code: UUID? = null
 )

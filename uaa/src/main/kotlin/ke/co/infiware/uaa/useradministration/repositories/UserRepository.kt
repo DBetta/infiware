@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository
  *
  * @author Denis Gitonga
  */
-interface UserRepository  {
+interface UserRepository : JpaRepository<InfiwareUser, String>  {
 
 }

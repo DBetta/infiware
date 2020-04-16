@@ -5,6 +5,7 @@ import ke.co.infiware.exceptions.utils.ExceptionUtils
 import ke.co.infiware.uaa.security.models.IUserDto
 import ke.co.infiware.uaa.useradministration.enums.PreferredAuthType
 import ke.co.infiware.uaa.useradministration.enums.YesNoType
+import java.util.*
 
 /**
  *
@@ -12,7 +13,7 @@ import ke.co.infiware.uaa.useradministration.enums.YesNoType
  */
 @KotlinBuilder
 data class UserDto(
-        val code: String? = null,
+        val code: UUID? = null,
 
         val emailAddress: String? = null,
 

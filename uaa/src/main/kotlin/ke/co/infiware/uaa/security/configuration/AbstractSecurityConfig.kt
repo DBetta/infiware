@@ -1,12 +1,12 @@
 package ke.co.infiware.uaa.security.configuration
 
 import com.nimbusds.jwt.JWTClaimsSet
-import ke.co.infiware.exceptions.utils.ExceptionUtils
 import ke.co.infiware.uaa.security.jwt.BlueTokenService
 import ke.co.infiware.uaa.security.models.IUserDto
 import ke.co.infiware.uaa.security.models.InfiwarePrincipal
 import ke.co.infiware.uaa.utils.TOKEN_PREFIX
 import ke.co.infiware.uaa.utils.TOKEN_PREFIX_LENGTH
+import ke.co.infiware.uaa.utils.getI18Message
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.http.HttpHeaders
@@ -97,7 +97,7 @@ abstract class AbstractSecurityConfig<T : IUserDto> constructor(
             log.debug("Authenticating with token...")
 
             val token = authentication.credentials as? String
-                    ?: throw BadCredentialsException(ExceptionUtils.getMessage(messageKey = "ke.co.infiware.uaa.wrong.audience"))
+                    ?: throw BadCredentialsException(getI18Message(messageKey = "ke.co.infiware.uaa.wrong.audience"))
             val claims = blueTokenService.parseToken(token = token, aud = BlueTokenService.AUTH_AUDIENCE)
             val userDto = getUserDto(claims = claims)
             val user = if (userDto == null)
@@ -119,7 +119,7 @@ abstract class AbstractSecurityConfig<T : IUserDto> constructor(
      * @return
      */
     open fun fetchUser(username: String): Mono<T> {
-        val message = ExceptionUtils.getMessage(messageKey = "ke.co.infiware.uaa.missingUserClaim")
+        val message = getI18Message(messageKey = "ke.co.infiware.uaa.missingUserClaim")
         return Mono.error(BadCredentialsException(message))
     }
 

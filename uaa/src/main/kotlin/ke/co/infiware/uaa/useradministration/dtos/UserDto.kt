@@ -1,10 +1,10 @@
 package ke.co.infiware.uaa.useradministration.dtos
 
 import com.github.pozo.KotlinBuilder
-import ke.co.infiware.exceptions.utils.ExceptionUtils
 import ke.co.infiware.uaa.security.models.IUserDto
 import ke.co.infiware.uaa.useradministration.enums.PreferredAuthType
 import ke.co.infiware.uaa.useradministration.enums.YesNoType
+import ke.co.infiware.uaa.utils.getI18Message
 import java.util.*
 
 /**
@@ -15,26 +15,32 @@ import java.util.*
 data class UserDto(
         val code: UUID? = null,
 
-        val emailAddress: String? = null,
-
-        val mobileNumber: String? = null,
+        val username: UsernameDto = UsernameDto(),
 
         val preferredAuthType: PreferredAuthType = PreferredAuthType.EMAIL_ADDRESS,
 
-        private var password: String? = null,
+        var rawPassword: String? = null,
+
+        val fistName: String? = null,
+
+        val middleName: String? = null,
+
+        val lastName: String? = null,
+
+        val photoUrl: String? = null,
 
         private var verified: YesNoType = YesNoType.NO,
 
         private var disabled: YesNoType = YesNoType.NO
 ) : IUserDto {
     override fun getUsername(): String = when (preferredAuthType) {
-        PreferredAuthType.EMAIL_ADDRESS -> emailAddress
-        PreferredAuthType.MOBILE_NUMBER -> mobileNumber
+        PreferredAuthType.EMAIL_ADDRESS -> username.emailAddress
+        PreferredAuthType.MOBILE_NUMBER -> username.mobileNumber
     } ?: throw IllegalArgumentException(
-            ExceptionUtils.getMessage(messageKey = "ke.co.infiware.uaa.missingUserName", args = *arrayOf(preferredAuthType))
+            getI18Message(messageKey = "ke.co.infiware.uaa.missingUserName", args = *arrayOf(preferredAuthType))
     )
 
-    override fun getPassword(): String? = password
+    override fun getPassword(): String? = rawPassword
 
     override fun getRoles(): Set<String> = emptySet()
 
@@ -43,6 +49,6 @@ data class UserDto(
     override fun isDisabled(): Boolean = disabled == YesNoType.YES
 
     override fun eraseCredentials() {
-        password = null
+        rawPassword = null
     }
 }

@@ -10,7 +10,7 @@ plugins {
 
 
 dependencies {
-    implementation(project(":exceptions"))
+    implementation(project(":commons"))
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
@@ -23,6 +23,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     /*runtimeOnly("dev.miku:r2dbc-mysql")*/
     runtimeOnly("mysql:mysql-connector-java")
+    implementation("org.liquibase:liquibase-core")
 
     // map-struct
     implementation("org.mapstruct:mapstruct:1.3.1.Final")
@@ -36,7 +37,7 @@ dependencies {
     implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer")
     //
 
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
 
 
     // test dependencies

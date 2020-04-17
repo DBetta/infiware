@@ -50,10 +50,10 @@ class MultiErrorException internal constructor(
      * Adds a field-error if the given condition isn't true
      */
     fun validateField(fieldName: String?,
-                      valid: Boolean,
+                      expression: Boolean,
                       messageKey: String,
                       vararg args: Any): MultiErrorException {
-        if (valid.not())
+        if (expression.not())
             errors.add(
                     InfiwareFieldError(
                             field = fieldName,
@@ -68,12 +68,12 @@ class MultiErrorException internal constructor(
      * Adds a global-error if the given condition isn't true
      */
     fun validate(
-            valid: Boolean,
+            expression: Boolean,
             messageKey: String,
             vararg args: Any): MultiErrorException? {
 
         // delegate
-        return validateField(null, valid, messageKey, args)
+        return validateField(null, expression, messageKey, args)
     }
 
     /**

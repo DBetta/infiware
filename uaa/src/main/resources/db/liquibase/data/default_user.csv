@@ -1,0 +1,2 @@
+usr_username;usr_email;usr_password;usr_is_verified;usr_is_deleted;usr_is_blocked;version
+Administrator;admin@bomapoint.com;{bcrypt}$2a$10$V54ezj5nyOk5oRKpyd6lguYJIQgBw7dMTVt4Gwc.r7rOX2/7dOrQa;true;false;false;1

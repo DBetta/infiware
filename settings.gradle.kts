@@ -12,4 +12,4 @@
     }
 }*/
 rootProject.name = "infiware"
-include(":exceptions", ":gateway", ":uaa")
+include(":exceptions", ":commons", ":gateway", ":uaa")

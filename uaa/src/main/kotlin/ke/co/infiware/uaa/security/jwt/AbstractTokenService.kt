@@ -2,7 +2,7 @@ package ke.co.infiware.uaa.security.jwt
 
 import com.nimbusds.jose.Payload
 import com.nimbusds.jwt.JWTClaimsSet
-import ke.co.infiware.exceptions.utils.ExceptionUtils
+import ke.co.infiware.uaa.utils.getI18Message
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.security.authentication.BadCredentialsException
@@ -43,7 +43,7 @@ abstract class AbstractTokenService : TokenService {
     override fun parseToken(token: String, aud: String): JWTClaimsSet {
         val claims = parseToken(token = token)
         if (claims.audience.contains(aud).not()) {
-            throw BadCredentialsException(ExceptionUtils.getMessage(messageKey = "ke.co.infiware.uaa.wrong.audience"))
+            throw BadCredentialsException(getI18Message(messageKey = "ke.co.infiware.uaa.wrong.audience"))
         }
 
         val expirationTime = claims.expirationTime.time
@@ -52,7 +52,7 @@ abstract class AbstractTokenService : TokenService {
         log.debug("Parsing JWT. Expiration time = {}. Current time = {}", expirationTime, currentTime)
 
         if (expirationTime >= currentTime)
-            throw BadCredentialsException(ExceptionUtils.getMessage(messageKey = "ke.co.infiware.uaa.expiredToken"))
+            throw BadCredentialsException(getI18Message(messageKey = "ke.co.infiware.uaa.expiredToken"))
 
         return claims
     }
@@ -62,7 +62,7 @@ abstract class AbstractTokenService : TokenService {
 
         val issueTime = claims.getClaim(TokenService.IAT) as Long
         if (issueTime >= issuedAfter)
-            throw BadCredentialsException(ExceptionUtils.getMessage(messageKey = "ke.co.infiware.uaa.obsoleteToken"))
+            throw BadCredentialsException(getI18Message(messageKey = "ke.co.infiware.uaa.obsoleteToken"))
 
         return claims
     }

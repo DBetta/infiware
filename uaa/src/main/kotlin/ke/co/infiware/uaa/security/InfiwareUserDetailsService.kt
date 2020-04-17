@@ -1,10 +1,11 @@
 package ke.co.infiware.uaa.security
 
-import ke.co.infiware.exceptions.utils.ExceptionUtils
+
 import ke.co.infiware.uaa.security.models.InfiwarePrincipal
 import ke.co.infiware.uaa.useradministration.enities.InfiwareUser
 import ke.co.infiware.uaa.useradministration.mappers.UserMapper
 import ke.co.infiware.uaa.useradministration.repositories.UserRepository
+import ke.co.infiware.uaa.utils.getI18Message
 import kotlinx.coroutines.reactor.mono
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
@@ -30,7 +31,7 @@ class InfiwareUserDetailsService(
             if (user == null){
                 log.debug("could not find user by username: {}", username)
                 throw UsernameNotFoundException(
-                        ExceptionUtils.getMessage(messageKey = "ke.co.infiware.uaa.userNotFound", args = *arrayOf(username))
+                        getI18Message(messageKey = "ke.co.infiware.uaa.userNotFound", args = *arrayOf(username))
                 )
             }
 

@@ -1,0 +1,2 @@
+rol_name;rol_description;rol_is_disabled;version
+Super User;This role provides all application permissions.;false;1

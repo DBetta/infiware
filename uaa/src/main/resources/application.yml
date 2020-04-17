@@ -1,6 +1,8 @@
 spring:
   application:
     name: uaa-service
+  profiles:
+    active: dev
 
   ## r2dbc datasource configuration
 #  r2dbc:
@@ -13,6 +15,8 @@ spring:
     url: jdbc:mysql://localhost:3306/infi_test
     username: root
     password: mysql
+  liquibase:
+    contexts: dev
 
   ## Security properties
   security:

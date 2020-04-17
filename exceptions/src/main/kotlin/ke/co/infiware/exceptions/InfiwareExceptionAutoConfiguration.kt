@@ -4,30 +4,25 @@ import ke.co.infiware.exceptions.handlers.AbstractExceptionHandler
 import ke.co.infiware.exceptions.utils.ExceptionUtils
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.ObjectProvider
 import org.springframework.boot.autoconfigure.AutoConfigureBefore
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
-import org.springframework.boot.autoconfigure.security.reactive.ReactiveSecurityAutoConfiguration
 import org.springframework.boot.autoconfigure.validation.ValidationAutoConfiguration
 import org.springframework.boot.autoconfigure.web.reactive.WebFluxAutoConfiguration
 import org.springframework.boot.autoconfigure.web.reactive.error.ErrorWebFluxAutoConfiguration
 import org.springframework.boot.web.reactive.error.ErrorAttributes
-import org.springframework.context.MessageSource
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.Configuration
-import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean
 
 /**
  *
  * @author Denis Gitonga
  */
 @Configuration
-@AutoConfigureBefore(
-        ValidationAutoConfiguration::class,
+@AutoConfigureBefore(ValidationAutoConfiguration::class,
         WebFluxAutoConfiguration::class,
-        ErrorWebFluxAutoConfiguration::class,
-        ReactiveSecurityAutoConfiguration::class
-)
+        ErrorWebFluxAutoConfiguration::class)
 @ComponentScan(basePackageClasses = [AbstractExceptionHandler::class])
 class InfiwareExceptionAutoConfiguration {
 
@@ -72,14 +67,12 @@ class InfiwareExceptionAutoConfiguration {
      */
     @Bean
     fun exceptionUtils(
-            messageSource: MessageSource?,
-            validator: LocalValidatorFactoryBean?,
-            exceptionIdMaker: ExceptionIdMaker?
+            exceptionIdMaker: ExceptionIdMaker?,
+            exceptionMessageParser: ObjectProvider<ExceptionMessageParser>
     ): ExceptionUtils {
         return ExceptionUtils(
-                messageSource = messageSource,
-                validator = validator,
-                exceptionIdMaker = exceptionIdMaker
+                exceptionIdMaker = exceptionIdMaker,
+                exceptionMessageParser = exceptionMessageParser.ifAvailable
         )
     }
 

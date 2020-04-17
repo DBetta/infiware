@@ -47,6 +47,7 @@ subprojects {
 
     configure<JavaPluginExtension> {
         java.sourceCompatibility = JavaVersion.VERSION_11
+        java.targetCompatibility = JavaVersion.VERSION_11
     }
 
     sourceSets {

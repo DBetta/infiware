@@ -8,7 +8,7 @@ import org.springframework.security.core.GrantedAuthority
  *
  * @author Denis Gitonga
  */
-interface IUserDto : CredentialsContainer{
+interface IUserDto : CredentialsContainer {
 
     @JsonIgnore
     fun getUsername(): String

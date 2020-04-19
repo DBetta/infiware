@@ -52,4 +52,14 @@ class UaaDefaults {
             const val maxAge = 3_600L
         }
     }
+
+    class Jwt {
+        companion object {
+            val secret = ""
+
+            val expirationMillis = 864_000_000L // 10 days
+
+            val shortLivedMillis = 120_000L // Two minutes
+        }
+    }
 }

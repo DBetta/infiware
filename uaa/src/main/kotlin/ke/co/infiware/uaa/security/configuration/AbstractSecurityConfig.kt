@@ -101,7 +101,7 @@ abstract class AbstractSecurityConfig<T : IUserDto> constructor(
             val claims = blueTokenService.parseToken(token = token, aud = BlueTokenService.AUTH_AUDIENCE)
             val userDto = getUserDto(claims = claims)
             val user = if (userDto == null)
-                fetchUser(username = claims.subject)
+                fetchUser(claims = claims)
             else
                 Mono.just(userDto)
 
@@ -115,10 +115,10 @@ abstract class AbstractSecurityConfig<T : IUserDto> constructor(
     /**
      * Default behaviour is to throw error. To be overridden in auth service.
      *
-     * @param username
+     * @param claims
      * @return
      */
-    open fun fetchUser(username: String): Mono<T> {
+    open fun fetchUser(claims: JWTClaimsSet): Mono<T> {
         val message = getI18Message(messageKey = "ke.co.infiware.uaa.missingUserClaim")
         return Mono.error(BadCredentialsException(message))
     }

@@ -52,3 +52,5 @@ infiware:
   uaa:
     cors:
       max-age: 3600
+    jwt:
+      secret: 841D8A6C80CBA4FCAD32D5367C18C53B

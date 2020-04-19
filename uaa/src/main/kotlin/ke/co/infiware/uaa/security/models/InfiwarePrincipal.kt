@@ -21,6 +21,8 @@ data class InfiwarePrincipal(
         private var claims: Map<String, Any> = emptyMap()
 ) : UserDetails, OidcUser, CredentialsContainer {
 
+    fun getCurrentUser(): IUserDto = userDto
+
     override fun getAttributes(): Map<String, Any> = attributes
 
     override fun getUserInfo(): OidcUserInfo? = oidcUserInfo

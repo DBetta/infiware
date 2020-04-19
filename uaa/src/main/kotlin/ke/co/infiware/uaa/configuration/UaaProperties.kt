@@ -10,7 +10,22 @@ import org.springframework.boot.context.properties.ConstructorBinding
 @ConstructorBinding
 @ConfigurationProperties("infiware.uaa")
 data class UaaProperties(
-        val cors: Cors = Cors()
+
+        /**
+         * The default URL to redirect to after
+         * a user logs in using OAuth2/OpenIDConnect
+         */
+        val oauth2AuthenticationSuccessUrl: String? = "http://localhost:9000/social-login-success?token=",
+
+        /**
+         * CORS related properties
+         */
+        val cors: Cors = Cors(),
+
+        /**
+         * JWT token generation related properties
+         */
+        val jwt: Jwt = Jwt()
 ) {
 
     data class Cors(
@@ -47,5 +62,22 @@ data class UaaProperties(
              */
             val maxAge: Long = UaaDefaults.Cors.maxAge
 
+    )
+
+    data class Jwt(
+            /**
+             * Secret for signing JWT
+             */
+            val secret: String = UaaDefaults.Jwt.secret,
+
+            /**
+             * Default expiration milliseconds
+             */
+            val expirationMillis: Long = UaaDefaults.Jwt.expirationMillis,
+
+            /**
+             * Expiration milliseconds for short-lived tokens and cookies
+             */
+            val shortLivedMillis: Long = UaaDefaults.Jwt.shortLivedMillis
     )
 }

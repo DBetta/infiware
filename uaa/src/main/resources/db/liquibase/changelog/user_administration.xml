@@ -12,7 +12,7 @@
     <changeSet id="1" author="Denis Gitonga">
         <!-- Creates infiware users table -->
         <createTable tableName="inf_users">
-            <column name="usr_code" type="bigint" autoIncrement="${autoIncrement}">
+            <column name="usr_code" type="${uuidType}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="usr_email" type="varchar(250)">
@@ -58,7 +58,7 @@
         </createTable>
 
         <createTable tableName="inf_roles">
-            <column name="rol_code" type="bigint" autoIncrement="${autoIncrement}">
+            <column name="rol_code" type="${uuidType}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="rol_name" type="varchar(100)">
@@ -76,7 +76,7 @@
         </createTable>
 
         <createTable tableName="inf_permissions">
-            <column name="perm_code" type="bigint" autoIncrement="${autoIncrement}">
+            <column name="perm_code" type="${uuidType}">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="perm_grouping" type="varchar(45)">
@@ -101,19 +101,19 @@
 
 
         <createTable tableName="inf_user_roles">
-            <column name="usr_code" type="bigint">
+            <column name="usr_code" type="${uuidType}">
                 <constraints nullable="false"/>
             </column>
-            <column name="rol_code" type="bigint">
+            <column name="rol_code" type="${uuidType}">
                 <constraints nullable="false"/>
             </column>
         </createTable>
 
         <createTable tableName="inf_role_permissions">
-            <column name="perm_code" type="bigint">
+            <column name="perm_code" type="${uuidType}">
                 <constraints nullable="false"/>
             </column>
-            <column name="rol_code" type="bigint">
+            <column name="rol_code" type="${uuidType}">
                 <constraints nullable="false"/>
             </column>
         </createTable>

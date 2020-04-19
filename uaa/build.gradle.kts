@@ -12,6 +12,7 @@ plugins {
 dependencies {
     implementation(project(":commons"))
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    /*implementation("org.springframework.boot:spring-boot-starter-data-r2dbc")*/
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-oauth2-client")
     implementation("org.springframework.boot:spring-boot-starter-security")
@@ -20,6 +21,7 @@ dependencies {
     implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
     /*runtimeOnly("dev.miku:r2dbc-mysql")*/
     runtimeOnly("mysql:mysql-connector-java")
@@ -30,6 +32,11 @@ dependencies {
     implementation("com.github.pozo:mapstruct-kotlin:1.3.1.2")
     kapt("org.mapstruct:mapstruct-processor:1.3.1.Final")
     kapt("com.github.pozo:mapstruct-kotlin-processor:1.3.1.2")
+    //
+
+    // google libphonenumber
+    implementation("com.googlecode.libphonenumber:libphonenumber:8.12.1")
+    implementation("commons-validator:commons-validator:1.6")
     //
 
     // cloud dependencies

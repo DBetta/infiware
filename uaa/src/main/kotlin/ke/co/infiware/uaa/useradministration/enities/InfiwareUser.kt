@@ -1,6 +1,8 @@
 package ke.co.infiware.uaa.useradministration.enities
 
 import com.github.pozo.KotlinBuilder
+import org.hibernate.annotations.GenericGenerator
+import org.hibernate.annotations.Type
 import java.util.*
 import javax.persistence.*
 
@@ -14,7 +16,9 @@ import javax.persistence.*
 data class InfiwareUser(
         @Id
         @Column(name = "usr_code")
-        @GeneratedValue(strategy = GenerationType.AUTO)
+        @Type(type = "uuid-char")
+        @GeneratedValue(generator="uuid2")
+        @GenericGenerator(name="uuid2", strategy = "uuid2")
         val code: UUID? = null,
 
         @Column(name = "usr_username")
@@ -54,7 +58,10 @@ data class InfiwareUser(
         val deleted: Boolean = false,
 
         @Column(name = "usr_is_blocked")
-        val blocked: Boolean = false
+        val blocked: Boolean = false,
+
+        @Version
+        val version: Long? = null
 
 
 )

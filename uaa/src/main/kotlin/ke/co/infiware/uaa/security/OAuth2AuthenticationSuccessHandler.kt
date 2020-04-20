@@ -14,6 +14,7 @@ import ke.co.infiware.uaa.utils.deleteCookies
 import ke.co.infiware.uaa.utils.fetchCookie
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.reactive.awaitFirst
+import kotlinx.coroutines.reactive.awaitFirstOrNull
 import kotlinx.coroutines.reactor.mono
 import kotlinx.coroutines.withContext
 import org.slf4j.Logger
@@ -74,7 +75,7 @@ class OAuth2AuthenticationSuccessHandler(
 
         val location = URI.create(targetUrl)
 
-        return@mono redirectStrategy.sendRedirect(exchange, location).awaitFirst()
+        return@mono redirectStrategy.sendRedirect(exchange, location).awaitFirstOrNull()
     }
 
     /**
@@ -119,7 +120,7 @@ class OAuth2AuthenticationSuccessHandler(
 
     private fun fillAdditionalFields(user: InfiwareUser, registrationId: String, attributes: Map<String, Any>): InfiwareUser {
 
-        return if (registrationId == "google" && registrationId == "facebook") {
+        return if (registrationId == "google" || registrationId == "facebook") {
 
             val firstName = attributes[StandardClaimNames.GIVEN_NAME] as? String
             val middleName = attributes[StandardClaimNames.MIDDLE_NAME] as? String

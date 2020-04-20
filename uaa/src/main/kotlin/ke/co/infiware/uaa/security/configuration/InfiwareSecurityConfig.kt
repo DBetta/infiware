@@ -25,8 +25,7 @@ import reactor.core.publisher.Mono
  *
  * @author Denis Gitonga
  */
-@Configuration
-class SecurityConfig(
+class InfiwareSecurityConfig(
         blueTokenService: BlueTokenService,
 
         private val uaaProperties: UaaProperties,

@@ -12,7 +12,8 @@ import ke.co.infiware.uaa.utils.AUTHORIZATION_REQUEST_COOKIE_NAME
 import ke.co.infiware.uaa.utils.REDIRECT_URI_COOKIE_PARAM_NAME
 import ke.co.infiware.uaa.utils.deleteCookies
 import kotlinx.coroutines.reactor.mono
-import org.springframework.context.annotation.Configuration
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.security.config.web.server.ServerHttpSecurity
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.core.userdetails.UsernameNotFoundException
@@ -64,8 +65,10 @@ class InfiwareSecurityConfig(
     /**
      * Override this to change login URL
      */
-    fun loginPage(): String {
-        return "authenticate"
+    private fun loginPage(): String {
+        val loginUrl = uaaProperties.loginUrl
+        log.debug("The loginUrl is: {}", loginUrl)
+        return loginUrl
     }
 
     override fun fetchUser(claims: JWTClaimsSet): Mono<UserDto> = mono {
@@ -82,7 +85,7 @@ class InfiwareSecurityConfig(
     }
 
 
-    fun onOauth2AuthenticationFailure(
+    private fun onOauth2AuthenticationFailure(
             webFilterExchange: WebFilterExchange,
             exception: AuthenticationException): Mono<Void> {
 
@@ -93,5 +96,9 @@ class InfiwareSecurityConfig(
         ))
 
         return Mono.error(exception)
+    }
+
+    companion object {
+        private val log: Logger = LoggerFactory.getLogger(InfiwareSecurityConfig::class.java)
     }
 }

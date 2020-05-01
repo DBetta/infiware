@@ -16,9 +16,9 @@ const val TOKEN_PREFIX = "Bearer "
 const val TOKEN_PREFIX_LENGTH = 7
 const val TOKEN_RESPONSE_HEADER_NAME = "Infiware-Authorization"
 const val AUTHORIZATION_REQUEST_COOKIE_NAME = "infiware_oauth2_authorization_request"
-const val REDIRECT_URI_COOKIE_PARAM_NAME = "lemon_redirect_uri";
+const val REDIRECT_URI_COOKIE_PARAM_NAME = "infiware_redirect_uri";
 
-fun getI18Message(messageKey: String, vararg args: Any): String? {
+fun getI18Message(messageKey: String, vararg args: Any): String {
     return I18nUtils.getMessage(messageKey, args)
 }
 

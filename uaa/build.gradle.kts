@@ -39,6 +39,10 @@ dependencies {
     implementation("commons-validator:commons-validator:1.6")
     //
 
+    // swagger
+    implementation("org.springdoc:springdoc-openapi-webflux-ui:1.3.0")
+    implementation("org.springdoc:springdoc-openapi-kotlin:1.3.0")
+
     // cloud dependencies
     implementation("org.springframework.cloud:spring-cloud-starter-consul-discovery")
     implementation("org.springframework.cloud:spring-cloud-starter-loadbalancer")

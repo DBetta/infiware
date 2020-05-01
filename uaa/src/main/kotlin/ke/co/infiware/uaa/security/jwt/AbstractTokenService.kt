@@ -62,7 +62,7 @@ abstract class AbstractTokenService : TokenService {
 
         val issueTime = claims.getClaim(TokenService.IAT) as Long
         if (issueTime >= issuedAfter)
-            throw BadCredentialsException(getI18Message(messageKey = "ke.co.infiware.uaa.obsoleteToken"))
+            throw BadCredentialsException(getI18Message(messageKey = "ke.co.infiware.uaa.expiredToken"))
 
         return claims
     }

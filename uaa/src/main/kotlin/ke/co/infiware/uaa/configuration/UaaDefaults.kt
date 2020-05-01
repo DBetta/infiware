@@ -8,6 +8,11 @@ import org.springframework.http.HttpHeaders
  * @author Denis Gitonga
  */
 class UaaDefaults {
+
+   companion object{
+       val loginUrl: String = "api/login"
+   }
+
     class Cors {
         companion object {
             val allowedOrigins: List<String> = emptyList()

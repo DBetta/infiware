@@ -62,7 +62,9 @@ class OAuth2AuthenticationSuccessHandler(
 
         val exchange = webFilterExchange?.exchange
 
-        val oauth2AuthenticationToken = ReactiveSecurityContextHolder.getContext().awaitFirst().authentication as OAuth2AuthenticationToken
+        // we expect that context won't be empty
+        val oauth2AuthenticationToken = ReactiveSecurityContextHolder.getContext()
+                .awaitFirst().authentication as OAuth2AuthenticationToken
 
         val principal = buildPrincipal(oauth2User = oauth2AuthenticationToken.principal,
                 registrationId = oauth2AuthenticationToken.authorizedClientRegistrationId)
@@ -87,13 +89,19 @@ class OAuth2AuthenticationSuccessHandler(
 
         val attributes = oauth2User.attributes
         val emailAddress = getOAuth2Email(registrationId = registrationId, attributes = attributes)
+        ExceptionUtils.validate(
+                valid = emailAddress != null,
+                messageKey = "ke.co.infiware.uaa.oauth2EmailNeeded",
+                args = *arrayOf(registrationId)).go()
+
         val emailVerified = getOAuth2AccountVerified(registrationId = registrationId, attributes = attributes)
 
         ExceptionUtils.validate(
-                expression = emailVerified,
-                messageKey = "ke.co.infiware.uaa.oauth2EmailNotVerified")
+                valid = emailVerified,
+                messageKey = "ke.co.infiware.uaa.oauth2EmailNotVerified",
+                args = *arrayOf(emailAddress)).go()
 
-        val infiwareUser = userDetailsService.findByEmailAddress(emailAddress = emailAddress)
+        val infiwareUser = userDetailsService.findByEmailAddress(emailAddress = emailAddress!!)
                 ?: createUser(emailAddress = emailAddress, registrationId = registrationId, attributes = attributes)
         log.debug("successfully created/fetched user {}", infiwareUser.code)
 
@@ -145,10 +153,10 @@ class OAuth2AuthenticationSuccessHandler(
      * Extracts the email id from user attributes received from OAuth2 provider, e.g. Google
      *
      */
-    private fun getOAuth2Email(registrationId: String, attributes: Map<String, Any>): String {
+    private fun getOAuth2Email(registrationId: String, attributes: Map<String, Any>): String? {
         log.debug("Getting ouath2 email from {}", registrationId)
 
-        return attributes[StandardClaimNames.EMAIL] as String
+        return attributes[StandardClaimNames.EMAIL] as? String
     }
 
     /**

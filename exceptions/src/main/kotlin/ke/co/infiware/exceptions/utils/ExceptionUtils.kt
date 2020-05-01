@@ -51,11 +51,11 @@ class ExceptionUtils internal constructor(
          * Creates a MultiErrorException out of the given parameters
          */
         fun validate(
-                expression: Boolean,
+                valid: Boolean,
                 messageKey: String,
                 vararg args: Any?
         ): MultiErrorException {
-            return validateField(null, expression, messageKey, *args)
+            return validateField(null, valid, messageKey, *args)
         }
 
 
@@ -64,11 +64,11 @@ class ExceptionUtils internal constructor(
          */
         fun validateField(
                 fieldName: String?,
-                expression: Boolean,
+                valid: Boolean,
                 messageKey: String,
                 vararg args: Any?
         ): MultiErrorException {
-            return MultiErrorException().validateField(fieldName, expression, messageKey, args)
+            return MultiErrorException().validateField(fieldName, valid, messageKey, args)
         }
 
         fun <T : Throwable> getExceptionId(ex: T?): String? {

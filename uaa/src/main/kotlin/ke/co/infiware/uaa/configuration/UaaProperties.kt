@@ -18,6 +18,12 @@ data class UaaProperties(
         val oauth2AuthenticationSuccessUrl: String? = "http://localhost:9000/social-login-success?token=",
 
         /**
+         * URL of the login endpoint
+         * e.g. POST /api/login
+         */
+        val loginUrl: String = UaaDefaults.loginUrl,
+
+        /**
          * CORS related properties
          */
         val cors: Cors = Cors(),

@@ -1,5 +1,6 @@
 package ke.co.infiware.uaa.useradministration.dtos
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import com.github.pozo.KotlinBuilder
 import ke.co.infiware.uaa.security.models.IUserDto
 import ke.co.infiware.uaa.utils.getI18Message
@@ -35,7 +36,10 @@ data class UserDto(
 
         private val verified: Boolean = false,
 
-        private val disabled: Boolean = false
+        private val disabled: Boolean = false,
+
+        @JsonIgnore
+        private val password: String? = null
 ) : IUserDto {
     override fun getUsername(): String {
 
@@ -43,7 +47,7 @@ data class UserDto(
         ?: throw IllegalArgumentException(getI18Message(messageKey = "ke.co.infiware.uaa.missingUserName"))
     }
 
-    override fun getPassword(): String? = rawPassword
+    override fun getPassword(): String? = password
 
     override fun getRoles(): Set<String> = emptySet()
 

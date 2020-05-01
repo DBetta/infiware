@@ -10,7 +10,7 @@ import org.springframework.http.HttpHeaders
 class UaaDefaults {
 
    companion object{
-       val loginUrl: String = "api/login"
+       const val loginUrl: String = "/api/login"
    }
 
     class Cors {

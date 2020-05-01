@@ -53,12 +53,13 @@ spring:
 logging:
   level:
     ke.co.infiware: trace
-    org.springframework.security: trace
+    org.springframework.web: trace
 
 ### Server configuration
 server:
-  servlet:
-    context-path: /uaa-service
+#  servlet:
+#    context-path: /uaa-service
+  port: 0
 
 ## uaa properties
 infiware:
@@ -67,4 +68,4 @@ infiware:
       max-age: 3600
     jwt:
       secret: 841D8A6C80CBA4FCAD32D5367C18C53B
-    login-url: ${server.servlet.context-path}/authenticate
+#    login-url: login

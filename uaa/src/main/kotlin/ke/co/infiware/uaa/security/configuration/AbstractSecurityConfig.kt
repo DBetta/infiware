@@ -48,7 +48,7 @@ abstract class AbstractSecurityConfig<T : IUserDto> constructor(
         return http
                 .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
                 .exceptionHandling()
-                    .accessDeniedHandler{ _, exception -> Mono.error(exception) }
+                    .accessDeniedHandler { _, exception -> Mono.error(exception) }
                     .authenticationEntryPoint { _, exception -> Mono.error(exception) }
                 .and()
                     .cors()

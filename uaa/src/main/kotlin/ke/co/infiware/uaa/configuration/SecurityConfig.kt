@@ -8,9 +8,14 @@ import ke.co.infiware.uaa.security.jwt.GreenTokenService
 import ke.co.infiware.uaa.security.jwt.JweTokenService
 import ke.co.infiware.uaa.security.jwt.JwsTokenService
 import ke.co.infiware.uaa.useradministration.mappers.UserMapper
+import ke.co.infiware.uaa.useradministration.repositories.InfiwareUserRepository
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
+import org.springframework.context.annotation.Primary
 import org.springframework.security.config.web.server.ServerHttpSecurity
+import org.springframework.security.core.userdetails.ReactiveUserDetailsService
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.server.SecurityWebFilterChain
@@ -38,6 +43,20 @@ class SecurityConfig {
     }
 
     @Bean
+    @Primary
+    fun infiwareReactiveUserDetailsService(
+            userMapper: UserMapper,
+            userRepository: InfiwareUserRepository
+    ): InfiwareReactiveUserDetailsService {
+        log.debug("Configuring InfiwareReactiveUserDetailsService...")
+
+        return InfiwareReactiveUserDetailsService(
+                userMapper = userMapper,
+                userRepository = userRepository
+        )
+    }
+
+    @Bean
     fun springSecurityFilterChain(
             http: ServerHttpSecurity,
             blueTokenService: BlueTokenService,
@@ -58,4 +77,7 @@ class SecurityConfig {
         return securityConfig.springSecurityFilterChain(http = http)
     }
 
+    companion object {
+        private val log: Logger = LoggerFactory.getLogger(SecurityConfig::class.java)
+    }
 }

@@ -18,7 +18,7 @@ data class UserDto(
 
         var rawPassword: String? = null,
 
-        val fistName: String? = null,
+        val firstName: String? = null,
 
         val middleName: String? = null,
 

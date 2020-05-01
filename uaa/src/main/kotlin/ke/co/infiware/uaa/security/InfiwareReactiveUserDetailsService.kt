@@ -17,7 +17,6 @@ import org.springframework.context.i18n.LocaleContextHolder
 import org.springframework.security.core.userdetails.ReactiveUserDetailsService
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UsernameNotFoundException
-import org.springframework.stereotype.Service
 import reactor.core.publisher.Mono
 import java.util.function.Supplier
 
@@ -25,7 +24,6 @@ import java.util.function.Supplier
  *
  * @author Denis Gitonga
  */
-@Service
 class InfiwareReactiveUserDetailsService(
         private val userMapper: UserMapper,
 
@@ -53,7 +51,7 @@ class InfiwareReactiveUserDetailsService(
         return@mono InfiwarePrincipal(userDto = userDto)
     }
 
-    final suspend fun findUserByUsername(username: String): InfiwareUser? {
+    suspend fun findUserByUsername(username: String): InfiwareUser? {
         return when {
             isEmailAddress(username = username) -> findByEmailAddress(emailAddress = username)
             isPhoneNumber(username = username) -> findByPhoneNumber(phoneNumber = username)

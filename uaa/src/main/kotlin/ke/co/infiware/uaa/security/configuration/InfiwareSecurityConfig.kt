@@ -42,11 +42,17 @@ class InfiwareSecurityConfig(
      * Configure formLogin
      */
     override fun formLogin(http: ServerHttpSecurity) {
-        http.formLogin()
-                .securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
+
+        // disable httpBasic
+        http.httpBasic().disable()
+
+        // disable formLogin
+        http.formLogin().disable()
+
+               /*.securityContextRepository(NoOpServerSecurityContextRepository.getInstance())
                 .loginPage(loginPage()) // Should be "/login" by default, but not providing that overwrites our AuthenticationFailureHandler, because this is called later
                 .authenticationFailureHandler { _, exception -> Mono.error(exception) }
-                .authenticationSuccessHandler(WebFilterChainServerAuthenticationSuccessHandler())
+                .authenticationSuccessHandler(WebFilterChainServerAuthenticationSuccessHandler())*/
     }
 
     /**

@@ -3,6 +3,7 @@ package ke.co.infiware.uaa.useradministration.dtos
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.github.pozo.KotlinBuilder
 import ke.co.infiware.uaa.security.models.IUserDto
+import ke.co.infiware.uaa.useradministration.enums.UserProvider
 import ke.co.infiware.uaa.utils.getI18Message
 import java.util.*
 
@@ -30,7 +31,7 @@ data class UserDto(
 
         val photoUrl: String? = null,
 
-        val provider: String? = "default",
+        val provider: UserProvider = UserProvider.DEFAULT,
 
         val providerId: String? = null,
 

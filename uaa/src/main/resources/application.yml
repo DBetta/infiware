@@ -3,6 +3,8 @@ spring:
     name: uaa-service
   profiles:
     active: dev
+  ## https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.1-Release-Notes#bean-overriding
+  main.allow-bean-definition-overriding: true
 
   ## r2dbc datasource configuration
 #  r2dbc:
@@ -53,7 +55,6 @@ spring:
 logging:
   level:
     ke.co.infiware: trace
-    org.springframework.web: trace
 
 ### Server configuration
 server:
@@ -64,8 +65,6 @@ server:
 ## uaa properties
 infiware:
   uaa:
-    cors:
-      max-age: 3600
     jwt:
       secret: 841D8A6C80CBA4FCAD32D5367C18C53B
 #    login-url: login

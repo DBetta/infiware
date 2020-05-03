@@ -2,6 +2,7 @@ package ke.co.infiware.uaa.configuration
 
 import ke.co.infiware.uaa.security.InfiwareReactiveUserDetailsService
 import ke.co.infiware.uaa.security.OAuth2AuthenticationSuccessHandler
+import ke.co.infiware.uaa.security.configuration.InfiwareCorsConfigurationSource
 import ke.co.infiware.uaa.security.configuration.InfiwareSecurityConfig
 import ke.co.infiware.uaa.security.jwt.BlueTokenService
 import ke.co.infiware.uaa.security.jwt.GreenTokenService
@@ -15,10 +16,10 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Primary
 import org.springframework.security.config.web.server.ServerHttpSecurity
-import org.springframework.security.core.userdetails.ReactiveUserDetailsService
 import org.springframework.security.crypto.factory.PasswordEncoderFactories
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.server.SecurityWebFilterChain
+import org.springframework.web.cors.reactive.CorsConfigurationSource
 
 /**
  *
@@ -40,6 +41,13 @@ class SecurityConfig {
     @Bean
     fun passwordEncoder(): PasswordEncoder {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder()
+    }
+
+    // @Bean
+    // Applied by gateway
+    fun corsConfiguration(uaaProperties: UaaProperties): InfiwareCorsConfigurationSource {
+        log.debug("Configuring InfiwareCorsConfigurationSource...")
+        return InfiwareCorsConfigurationSource(uaaProperties = uaaProperties)
     }
 
     @Bean

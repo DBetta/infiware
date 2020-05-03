@@ -8,9 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty
  */
 class AuthTokenDto(
 
-        @JsonProperty("token_type")
         val tokenType: String,
 
-        @JsonProperty("access_token")
         val accessToken: String
 )

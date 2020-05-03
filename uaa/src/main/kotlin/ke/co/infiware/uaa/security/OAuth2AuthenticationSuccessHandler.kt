@@ -6,6 +6,7 @@ import ke.co.infiware.uaa.security.jwt.BlueTokenService
 import ke.co.infiware.uaa.security.models.IUserDto
 import ke.co.infiware.uaa.security.models.InfiwarePrincipal
 import ke.co.infiware.uaa.useradministration.enities.InfiwareUser
+import ke.co.infiware.uaa.useradministration.enums.UserProvider
 import ke.co.infiware.uaa.useradministration.mappers.UserMapper
 import ke.co.infiware.uaa.useradministration.repositories.InfiwareUserRepository
 import ke.co.infiware.uaa.utils.AUTHORIZATION_REQUEST_COOKIE_NAME
@@ -141,7 +142,7 @@ class OAuth2AuthenticationSuccessHandler(
                     middleName = middleName,
                     lastName = lastName,
                     photoUrl = photoUrl,
-                    provider = registrationId,
+                    provider = UserProvider.fromValue(registrationId),
                     providerId = providerId
             )
         } else {

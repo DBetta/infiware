@@ -10,12 +10,16 @@ spring:
             - Path=/3rd-party/**
           filters:
             - RewritePath=/3rd-party/(?<segment>.*), /$\{segment}
+            # Add following Filter Response header in order to remove duplicates CORS value for a Http Header
+            - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
         - id: uaa-service
           uri: lb://uaa-service
           predicates:
             - Path=/uaa-service/**
           filters:
             - RewritePath=/uaa-service/(?<segment>.*), /$\{segment}
+            # Add following Filter Response header in order to remove duplicates CORS value for a Http Header
+            - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
       discovery:
         locator:
           enabled: true

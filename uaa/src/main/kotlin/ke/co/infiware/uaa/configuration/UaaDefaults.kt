@@ -60,11 +60,11 @@ class UaaDefaults {
 
     class Jwt {
         companion object {
-            val secret = ""
+            const val secret = ""
 
-            val expirationMillis = 864_000_000L // 10 days
+            const val expirationMillis = 864_000_000L // 10 days
 
-            val shortLivedMillis = 120_000L // Two minutes
+            const val shortLivedMillis = 120_000L // Two minutes
         }
     }
 }

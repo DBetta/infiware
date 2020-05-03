@@ -1,0 +1,11 @@
+input AuthDto {
+    username: String!,
+    password: String!
+}
+
+type AuthTokenDto {
+    tokenType: String!
+    accessToken: String!
+}
+
+

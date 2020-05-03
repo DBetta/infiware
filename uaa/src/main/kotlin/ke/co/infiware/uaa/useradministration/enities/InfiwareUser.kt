@@ -1,6 +1,7 @@
 package ke.co.infiware.uaa.useradministration.enities
 
 import com.github.pozo.KotlinBuilder
+import ke.co.infiware.uaa.useradministration.enums.UserProvider
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
 import java.util.*
@@ -46,7 +47,8 @@ data class InfiwareUser(
         val photoUrl: String? = null,
 
         @Column(name = "usr_provider")
-        val provider: String? = "default",
+        @Enumerated(EnumType.STRING)
+        val provider: UserProvider = UserProvider.DEFAULT,
 
         @Column(name = "usr_provider_id")
         val providerId: String? = null,

@@ -11,7 +11,6 @@ import org.springframework.web.server.ServerWebExchange
  *
  * @author Denis Gitonga
  */
-@Configuration
 class InfiwareCorsConfigurationSource(
         private val uaaProperties: UaaProperties
 ) : CorsConfigurationSource {
@@ -20,6 +19,7 @@ class InfiwareCorsConfigurationSource(
         val cors = uaaProperties.cors
         val config = CorsConfiguration()
 
+        config.allowCredentials = true
         config.allowedMethods = cors.allowedMethods
         config.allowedHeaders = cors.allowedHeaders
         config.allowedOrigins = cors.allowedOrigins

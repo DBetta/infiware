@@ -39,6 +39,13 @@ dependencies {
     implementation("commons-validator:commons-validator:1.6")
     //
 
+    // graphql dependencies
+    implementation("com.graphql-java-kickstart:graphql-kickstart-spring-boot-autoconfigure-webflux:7.0.1")
+    implementation("com.graphql-java-kickstart:graphql-kickstart-spring-boot-starter-tools:7.0.1")
+    // runtimeOnly("com.graphql-java-kickstart:graphiql-spring-boot-starter:7.0.1")
+    testImplementation("com.graphql-java-kickstart:graphql-spring-boot-starter-test:7.0.1")
+    //
+
     // swagger
     implementation("org.springdoc:springdoc-openapi-webflux-ui:1.3.0")
     implementation("org.springdoc:springdoc-openapi-kotlin:1.3.0")

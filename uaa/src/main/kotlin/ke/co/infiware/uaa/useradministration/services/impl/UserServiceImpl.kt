@@ -11,7 +11,7 @@ import org.slf4j.Logger
 import org.slf4j.LoggerFactory
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
-import java.util.function.Supplier
+import java.util.*
 
 /**
  *
@@ -53,6 +53,18 @@ internal class UserServiceImpl(
                 .orElseThrow { UserNotFoundException(getI18Message("ke.co.infiware.uaa.userNotFound", *arrayOf(dto.code))) }
 
         TODO("Not yet implemented")
+    }
+
+    override suspend fun getUser(code: UUID): UserDto? {
+        log.debug("Fetching user by {}", code)
+
+        val user = userRepository.findById(code).orElse(null) ?: return null
+
+        val userDto = userMapper.map(user = user)
+
+        log.debug("Found user for {}", code)
+
+        return userDto
     }
 
 

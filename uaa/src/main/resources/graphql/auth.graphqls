@@ -8,4 +8,34 @@ type AuthTokenDto {
     accessToken: String!
 }
 
+input AuthForgotPasswordRequestDto {
+    emailAddress: String!
+}
 
+input AuthResetPasswordRequestDto {
+    # user code
+    userCode: UUID!
+
+    # token sent to email
+    token: String!
+
+    # the new password
+    newPassword: String!
+}
+
+input AuthVerifyAccountDto {
+    # user code
+    userCode: UUID!
+
+    # the token sent to email
+    token: String!
+}
+
+input AuthChangePasswordDto {
+    # user code
+    userCode: UUID!
+
+    oldPassword: String!
+
+    newPassword: String!
+}

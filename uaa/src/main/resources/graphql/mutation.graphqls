@@ -1,4 +1,19 @@
 type Mutation {
+    # Authenticate a user
     authenticate(auth: AuthDto!): AuthTokenDto!
 
+    # create user
+    createUser(user: CreateUserInputDto!): UserDto!
+
+    # updates user password
+    changePassword(dto: AuthChangePasswordDto!): UserDto!
+
+    # verifies user account
+    verifyAccount(dto: AuthVerifyAccountDto!): UserDto!
+
+    # Initiate password reset
+    forgotPassword(dto: AuthForgotPasswordRequestDto!): UserDto!
+
+    # reset password reset
+    resetPassword(dto: AuthResetPasswordRequestDto!): UserDto!
 }

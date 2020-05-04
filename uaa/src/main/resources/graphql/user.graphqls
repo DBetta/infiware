@@ -7,7 +7,7 @@ type UserDto {
     emailAddress: String,
     contactNumber: String,
     photoUrl: String,
-    provider: String!,
+    provider: UserProvider!,
     providerId: String
 }
 
@@ -17,4 +17,17 @@ enum UserProvider{
     FACEBOOK
 }
 
+
+input CreateUserInputDto {
+    username: String,
+    firstName: String,
+    middleName: String,
+    lastName: String
+    emailAddress: String!,
+    contactNumber: String!,
+    photoUrl: String,
+    provider: UserProvider! = DEFAULT,
+    providerId: String
+    rawPassword: String!
+}
 

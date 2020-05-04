@@ -11,6 +11,12 @@ interface BlueTokenService : TokenService {
 
         @JvmStatic
         val AUTH_AUDIENCE = "auth"
+
+        @JvmStatic
+        val VERIFY_AUDIENCE = "verify"
+
+        @JvmStatic
+        val FORGOT_PASSWORD_AUDIENCE = "forgot-password"
     }
 
 }

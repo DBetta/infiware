@@ -4,6 +4,7 @@ import com.github.pozo.KotlinBuilder
 import ke.co.infiware.uaa.useradministration.enums.UserProvider
 import org.hibernate.annotations.GenericGenerator
 import org.hibernate.annotations.Type
+import java.time.LocalDateTime
 import java.util.*
 import javax.persistence.*
 
@@ -61,6 +62,9 @@ data class InfiwareUser(
 
         @Column(name = "usr_is_blocked")
         val blocked: Boolean = false,
+
+        @Column(name = "usr_credentials_updated_millis")
+        val credentialsUpdatedMillis: LocalDateTime = LocalDateTime.now(),
 
         @Version
         val version: Long? = null

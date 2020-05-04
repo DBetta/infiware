@@ -1,6 +1,7 @@
 package ke.co.infiware.uaa.useradministration.services
 
 import ke.co.infiware.uaa.useradministration.dtos.UserDto
+import java.util.*
 
 /**
  *
@@ -19,4 +20,9 @@ interface UserService {
      * @param dto the user to save
      */
     suspend fun updateUser(dto: UserDto): UserDto
+
+    /**
+     *
+     */
+    suspend fun getUser(code: UUID): UserDto?
 }

@@ -9,7 +9,11 @@ pipelines:
             - gradle
             - docker
           script:
-            - ci/dependencies.sh
+            - apt-get update
+            # Add python pip and bash
+            - apt-get -y install python3-minimal python3-pip
+            # Install docker-compose via pip
+            - pip3 install docker-compose
             - bash ./gradlew build -x test
             - docker-compose build
             - docker login $DOCKER_REPOSITORY --username $DOCKER_USERNAME --password $DOCKER_PASSWORD

@@ -17,7 +17,13 @@ pipelines:
             - bash ./gradlew build -x test
             - docker-compose build
             - docker login $DOCKER_REPOSITORY --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
-            - docker push $DOCKER_REPOSITORY/bomapoint/gateway:latest
-            - docker push $DOCKER_REPOSITORY/bomapoint/uaa:latest
+            # tag gateway
+            - docker tag bomapoint/gateway $DOCKER_REPOSITORY/bomapoint/gateway:v$BITBUCKET_BUILD_NUMBER
+            # tag uaa
+            - docker tag bomapoint/uaa $DOCKER_REPOSITORY/bomapoint/uaa:v$BITBUCKET_BUILD_NUMBER
+            # push gateway
+            - docker push $DOCKER_REPOSITORY/bomapoint/gateway:v$BITBUCKET_BUILD_NUMBER
+            # push uaa
+            - docker push $DOCKER_REPOSITORY/bomapoint/uaa:v$BITBUCKET_BUILD_NUMBER
           services:
             - docker

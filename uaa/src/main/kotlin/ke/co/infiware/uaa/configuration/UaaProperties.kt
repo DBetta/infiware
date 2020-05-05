@@ -15,7 +15,7 @@ data class UaaProperties(
          * The default URL to redirect to after
          * a user logs in using OAuth2/OpenIDConnect
          */
-        val oauth2AuthenticationSuccessUrl: String? = "http://localhost:9000/social-login-success?token=",
+        val oauth2AuthenticationSuccessUrl: String? = "http://localhost:4200/social-login-success?token=",
 
         /**
          * URL of the login endpoint

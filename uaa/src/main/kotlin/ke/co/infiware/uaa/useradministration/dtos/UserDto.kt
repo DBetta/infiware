@@ -5,6 +5,7 @@ import com.github.pozo.KotlinBuilder
 import ke.co.infiware.uaa.security.models.IUserDto
 import ke.co.infiware.uaa.useradministration.enums.UserProvider
 import ke.co.infiware.uaa.utils.getI18Message
+import java.time.LocalDateTime
 import java.util.*
 
 /**
@@ -40,7 +41,10 @@ data class UserDto(
         private val disabled: Boolean = false,
 
         @JsonIgnore
-        private val password: String? = null
+        private val password: String? = null,
+
+        @JsonIgnore
+        val credentialsUpdatedMillis: LocalDateTime = LocalDateTime.now()
 ) : IUserDto {
     override fun getUsername(): String {
 

@@ -24,7 +24,7 @@ allprojects {
     tasks.withType<KotlinCompile> {
         kotlinOptions {
             freeCompilerArgs = listOf("-Xjsr305=strict", "-Xjvm-default=compatibility")
-            jvmTarget = "11"
+            jvmTarget = "1.8"
         }
     }
 
@@ -46,8 +46,8 @@ subprojects {
     }
 
     configure<JavaPluginExtension> {
-        java.sourceCompatibility = JavaVersion.VERSION_11
-        java.targetCompatibility = JavaVersion.VERSION_11
+        java.sourceCompatibility = JavaVersion.VERSION_1_8
+        java.targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     sourceSets {

@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+
+  ### gateway
+  gateway:
+    image: bomapoint/gateway:latest
+    build: ./gateway
+
+  ### uaa
+  uaa:
+    image: bomapoint/uaa:latest
+    build: ./uaa

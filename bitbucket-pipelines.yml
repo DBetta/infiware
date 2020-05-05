@@ -1,0 +1,10 @@
+image: openjdk:8
+
+pipelines:
+  branches:
+    master:
+      - step:
+          caches:
+            - gradle
+          script:
+            - bash ./gradlew build

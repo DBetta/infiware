@@ -16,4 +16,4 @@ pipelines:
             - docker push $DOCKER_REPOSITORY bomapoint/gateway
             - docker push $DOCKER_REPOSITORY bomapoint/uaa
           services:
-            docker
+            - docker

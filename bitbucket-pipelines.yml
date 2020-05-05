@@ -2,9 +2,18 @@ image: openjdk:8
 
 pipelines:
   branches:
-    master:
+    develop:
       - step:
+          name: Build with gradle, Create & Push images to a Docker Registry
           caches:
             - gradle
+            - docker
           script:
-            - bash ./gradlew build
+            - ci/dependencies.sh
+            - bash ./gradlew build -x test
+            - docker-compose build
+            - docker login $DOCKER_REPOSITORY --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
+            - docker push $DOCKER_REPOSITORY bomapoint/gateway
+            - docker push $DOCKER_REPOSITORY bomapoint/uaa
+          services:
+            docker

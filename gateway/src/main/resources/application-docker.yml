@@ -1,0 +1,49 @@
+spring:
+  application:
+    name: ${GATEWAY_SERVICE_NAME:gateway-service}
+  profiles:
+    active: test
+  cloud:
+    gateway:
+      routes:
+        - id: boma-service
+          uri: lb://boma-service
+          predicates:
+            - Path=/3rd-party/**
+          filters:
+            - RewritePath=/3rd-party/(?<segment>.*), /$\{segment}
+            # Add following Filter Response header in order to remove duplicates CORS value for a Http Header
+            - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
+        - id: ${UAA_SERVICE_NAME:uaa-service}
+          uri: lb://${UAA_SERVICE_NAME:uaa-service}
+          predicates:
+            - Path=/${UAA_SERVICE_NAME:uaa-service}/**
+          filters:
+            - RewritePath=/${UAA_SERVICE_NAME:uaa-service}/(?<segment>.*), /$\{segment}
+            # Add following Filter Response header in order to remove duplicates CORS value for a Http Header
+            - DedupeResponseHeader=Access-Control-Allow-Origin, RETAIN_UNIQUE
+      discovery:
+        locator:
+          enabled: true
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+    inetutils:
+      ignored-interfaces:
+        - docker0
+        - veth.*
+
+
+    ## consul discovery
+    consul:
+      host: ${CONSUL_SERVICE_HOST:bomapoint.com}
+      port: ${CONSUL_SERVICE_PORT:8500}
+      discovery:
+        instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+        heartbeat:
+          enabled: true
+        prefer-ip-address: true
+
+server:
+  port: ${GATEWAY_SERVICE_PORT:8762}

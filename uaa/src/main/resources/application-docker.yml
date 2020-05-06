@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: ${UAA_SERVICE_NAME:uaa-service}
+  profiles:
+    active: test
+  ## https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-2.1-Release-Notes#bean-overriding
+  main.allow-bean-definition-overriding: true
+
+  datasource:
+    url: jdbc:mysql://${UAA_DATABASE_HOST:localhost}:${UAA_DATABASE_PORT:3306}/${UAA_DATABASE:infi_test}
+    username: ${UAA_DATABASE_USERNAME:root}
+    password: ${UAA_DATABASE_PASSWORD:mysql}
+  liquibase:
+    contexts: test
+
+  ## Security properties
+  security:
+    oauth2:
+      client:
+        provider:
+          facebook:
+            user-info-uri: https://graph.facebook.com/me?fields=email,name
+        registration:
+          google:
+            client-id: ${GOOGLE_OAUTH2_CLIENT_ID:905822539352-atcmhqp7223ir3s15qf8cfbj516ol0qk.apps.googleusercontent.com}
+            client-secret: ${GOOGLE_OAUTH2_CLIENT_SECRET:dw9czwD9NhvohYj_x0VQOaBj}
+            redirect-uri: ${GOOGLE_OAUTH2_REDIRECT_URI:http://localhost:8762/uaa-service/login/oauth2/code/google}
+          facebook:
+            client-id: 548349525905412
+            client-secret: 15a20c560c4c780dabdc0e637c02087a
+
+  ## consul discovery
+  cloud:
+    consul:
+      host: ${CONSUL_SERVICE_HOST:bomapoint.com}
+      port: ${CONSUL_SERVICE_PORT:8500}
+      discovery:
+        instance-id: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+        heartbeat:
+          enabled: true
+        prefer-ip-address: true
+    loadbalancer:
+      ribbon:
+        enabled: false
+
+    inetutils:
+      ignored-interfaces:
+        - docker0
+        - veth.*
+
+## logging config
+logging:
+  level:
+    ke.co.infiware: trace
+
+### Server configuration
+server:
+  #  servlet:
+  #    context-path: /uaa-service
+  port: ${UAA_SERVICE_PORT:0}
+
+## uaa properties
+infiware:
+  uaa:
+    jwt:
+      secret: 841D8A6C80CBA4FCAD32D5367C18C53B
+    oauth2-authentication-success-url: ${OAUTH2_AUTH_SUCCESS_URI:http://localhost:4200/social-login-success?token=}
+#    login-url: login

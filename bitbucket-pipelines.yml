@@ -2,7 +2,7 @@ image: openjdk:8
 
 pipelines:
   branches:
-    develop:
+    master:
       - step:
           name: Build with gradle, Create & Push images to a Docker Registry
           caches:
@@ -18,12 +18,12 @@ pipelines:
             - docker-compose build
             - docker login $DOCKER_REPOSITORY --username $DOCKER_USERNAME --password $DOCKER_PASSWORD
             # tag gateway
-            - docker tag bomapoint/gateway $DOCKER_REPOSITORY/bomapoint/gateway:v$BITBUCKET_BUILD_NUMBER
+            - docker tag bomapoint/gateway $DOCKER_REPOSITORY/bomapoint/gateway
             # tag uaa
-            - docker tag bomapoint/uaa $DOCKER_REPOSITORY/bomapoint/uaa:v$BITBUCKET_BUILD_NUMBER
+            - docker tag bomapoint/uaa $DOCKER_REPOSITORY/bomapoint/uaa
             # push gateway
-            - docker push $DOCKER_REPOSITORY/bomapoint/gateway:v$BITBUCKET_BUILD_NUMBER
+            - docker push $DOCKER_REPOSITORY/bomapoint/gateway
             # push uaa
-            - docker push $DOCKER_REPOSITORY/bomapoint/uaa:v$BITBUCKET_BUILD_NUMBER
+            - docker push $DOCKER_REPOSITORY/bomapoint/uaa
           services:
             - docker
